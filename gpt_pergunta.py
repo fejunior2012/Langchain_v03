@@ -1,6 +1,8 @@
 import os
 from langchain_text_splitters import RecursiveCharacterTextSplitter, CharacterTextSplitter
+# Chroma DB é um banco de dados local com sqllite, portanto não suporte grandes volumes
 from langchain_chroma import Chroma
+from langchain_community.vectorstores import Milvus
 from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
@@ -63,11 +65,11 @@ else:
     parser = StrOutputParser()
     chain = template_mensagem | modelo | parser
 
-#question = "Quantos parâmetros tem o maior modelo Llama 3.1?"
-#question = "Qual o maior Lhama?"
+# question = "Quantos parâmetros tem o maior modelo Llama 3.1?"
+# question = "Qual o maior Lhama?"
 # question = "Quais os tamanhos dos modelos Llama?"
 
-# docs = vectorstore.similarity_search_with_score(question, k=4)
+
 
 def enviar_pergunta(pergunta):
     try:
@@ -85,7 +87,7 @@ def enviar_pergunta(pergunta):
         return resposta_texto
     except Exception as e:
         return f"Ocorreu um erro: {e}"
-    
-# resposta = enviar_pergunta(question + " \nUse os dados a seguir como referencia para a resposta" + str(docs))
 
+# docs = vectorstore.similarity_search_with_score(question, k=4)    
+# resposta = enviar_pergunta(question + " \nUse os dados a seguir como referencia para a resposta" + str(docs))
 # print("Resposta:", resposta)
